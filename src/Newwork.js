@@ -6,14 +6,11 @@ import minus from './images/icon-minus.svg'
 import editBtn from './images/icon-edit.svg'
 import deleteBtn from './images/icon-delete.svg'
 import data from './Data'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const Newwork = () => {
-  const [posts, setPosts] = useState(data)
   const [info, setInfo] = useState(data)
-  const [postsreply, setPostsreply] = useState([])
   const [error, setError] = useState('')
-
   const [replyvalue, setReplyvalue] = useState('')
   const [hideform, setHideform] = useState(false)
   const [formid, setFormid] = useState(0)
@@ -38,7 +35,6 @@ const Newwork = () => {
             item.replies.map((item) => {
               if (item.id === editID) {
                 item.content = replyvalue
-                // item.replies = { ...item, content: replyvalue }
               }
             })
             return item
