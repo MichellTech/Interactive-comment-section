@@ -1,5 +1,4 @@
 import React from 'react'
-import amy from './images/avatars/image-amyrobson.png'
 import reply from './images/icon-reply.svg'
 import plus from './images/icon-plus.svg'
 import minus from './images/icon-minus.svg'
@@ -10,7 +9,6 @@ import { useState } from 'react'
 
 const Newwork = () => {
   const [info, setInfo] = useState(data)
-  const [error, setError] = useState('')
   const [replyvalue, setReplyvalue] = useState('')
   const [hideform, setHideform] = useState(false)
   const [formid, setFormid] = useState(0)
@@ -35,6 +33,7 @@ const Newwork = () => {
             item.replies.map((item) => {
               if (item.id === editID) {
                 item.content = replyvalue
+                return item.content
               }
             })
             return item
@@ -60,6 +59,7 @@ const Newwork = () => {
             username: data.currentUser.username,
           }
           item.replies = [...item.replies, newreply]
+          return item.replies
         }
       })
       setPostid(id)
@@ -299,13 +299,6 @@ const Newwork = () => {
               key={index}
               className='space-y-2 flex-col justify-center items-center max-w-xs md:max-w-md lg:max-w-lg '
             >
-              {error ? (
-                <div>
-                  <h1 className='text-center'>{error}</h1>
-                </div>
-              ) : (
-                ''
-              )}
               {/* Inital Post section */}
               <div className='bg-white rounded-md shadow-md px-4 py-4 md:py-5 md:px-6  '>
                 {/* large screen  comment  */}
