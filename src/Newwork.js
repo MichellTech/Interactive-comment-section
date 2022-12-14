@@ -71,33 +71,57 @@ const Newwork = () => {
   const handleSubmit1 = (e, id, selecteditem, seconditem, mainitem) => {
     e.preventDefault()
     if (!replyvalue) {
+      alert('u dey mad?')
     } else if (replyvalue && isEditing) {
       setInfo((previousinfo) => ({
         ...previousinfo,
         comments: previousinfo.comments.map((item) => {
-          if (seconditem.id.length) {
-            if (item.id === selecteditem.id) {
-              item.replies.map((item) => {
-                if (item.id === seconditem.id) {
-                  item.content = replyvalue
-                }
-              })
-              return item
-            }
-          } else {
-            if (item.id === selecteditem.id) {
-              item.replies.map((item) => {
-                if (item.id === seconditem.id) {
-                  item.repliedTo.map((item) => {
-                    if (item.id === id) {
-                      item.content = replyvalue
-                    }
-                  })
-                }
-              })
-              return item
-            }
+          if (item.id === selecteditem.id) {
+            item.replies.map((item) => {
+              if (item.id === seconditem.id) {
+                item.repliedTo.map((item) => {
+                  console.log(seconditem.id)
+                  // if (item.id === mainitem) {
+                  //   console.log('hello')
+                  // }
+                })
+              }
+            })
+            // item.replies.map((item) => {
+            //   if (item.id === seconditem.id) {
+            //     item.repliedTo.map((item) => {
+            //       if (item.id === id) {
+            //         item.content = replyvalue
+            //       }
+            //     })
+            //   }
+            // })
+            return item
           }
+
+          // if (seconditem.id.length) {
+          //   if (item.id === selecteditem.id) {
+          //     item.replies.map((item) => {
+          //       if (item.id === seconditem.id) {
+          //         item.content = replyvalue
+          //       }
+          //     })
+          //     return item
+          //   }
+          // } else {
+          //   if (item.id === selecteditem.id) {
+          //     item.replies.map((item) => {
+          //       if (item.id === seconditem.id) {
+          //         item.repliedTo.map((item) => {
+          //           if (item.id === id) {
+          //             item.content = replyvalue
+          //           }
+          //         })
+          //       }
+          //     })
+          //     return item
+          //   }
+          // }
 
           return item
         }),
@@ -382,11 +406,8 @@ const Newwork = () => {
                 </div>
               </div>
 
-              {/* lol */}
-              <div
-                className='flex justify-end 
-'
-              >
+              {/* line through*/}
+              <div className='flex justify-end'>
                 {/* line */}
                 {hideform && formid === id ? (
                   <div className='border border-l md:border-l-2 border-l-lightGrayishBlue border-r-0 ml-6 '></div>
@@ -542,58 +563,7 @@ const Newwork = () => {
                               </div>
                             </div>
                           </div>
-                          {/* peopeles reply on replied section */}
-                          {/* this */}
-                          {hideform && formid === id ? (
-                            <form
-                              onSubmit={(e) =>
-                                handleSubmit1(e, id, mainitem, seconditem)
-                              }
-                              className='bg-white shadow-md rounded-md px-4 py-4 md:py-5 md:px-6  ml-8 md:ml-6 lg:ml-16'
-                            >
-                              {/* input container */}
-                              <div className='space-y-2 md:flex md:justify-between md:items-start md:space-y-0'>
-                                {/* image md */}
-                                <div className='flex justify-between items-center'>
-                                  <img
-                                    src={data.currentUser.image.png}
-                                    alt=''
-                                    className='w-12 hidden md:block'
-                                  />
-                                </div>
-                                {/* input */}
-                                <div className='md:w-2/3'>
-                                  <textarea
-                                    type='text'
-                                    placeholder='Add comment here'
-                                    value={replyvalue}
-                                    onChange={(e) =>
-                                      setReplyvalue(e.target.value)
-                                    }
-                                    className='font-sans text-xs font-light h-20 border rounded-md border-lightGrayishBlue 
-                  outline-lightGrayishBlue
-                  text-clip w-full px-2 py-1'
-                                  ></textarea>
-                                </div>
-                                {/* image and send */}
-                                <div className='flex justify-between items-center'>
-                                  <img
-                                    src={data.currentUser.image.png}
-                                    alt=''
-                                    className='w-8 md:hidden'
-                                  />
-                                  <button
-                                    type='submit'
-                                    className='px-2 py-1 md:py-2 md:px-4 md:rounded-md bg-blue text-white rounded-sm text-sm font-light'
-                                  >
-                                    {isEditing ? 'update' : 'Send'}
-                                  </button>
-                                </div>
-                              </div>
-                            </form>
-                          ) : (
-                            ''
-                          )}
+
                           {/* second reply on replies posts*/}
                           {repliedTo ? (
                             <div className='flex-col justify-end'>
@@ -610,6 +580,7 @@ const Newwork = () => {
                                         score,
                                         user,
                                       } = item
+                                      console.log(id)
                                       return (
                                         <div className='space-y-2'>
                                           {/* // reply and reply comment */}
@@ -754,6 +725,75 @@ const Newwork = () => {
                                                         }
                                                       />
                                                     </div>
+
+                                                    {/* peopeles reply on replied section */}
+                                                    {/* this */}
+                                                    {hideform &&
+                                                    formid === id ? (
+                                                      <form
+                                                        onSubmit={(e) =>
+                                                          handleSubmit1(
+                                                            e,
+                                                            id,
+                                                            mainitem,
+                                                            seconditem
+                                                          )
+                                                        }
+                                                        className='bg-white shadow-md rounded-md px-4 py-4 md:py-5 md:px-6  ml-8 md:ml-6 lg:ml-16'
+                                                      >
+                                                        {/* input container */}
+                                                        <div className='space-y-2 md:flex md:justify-between md:items-start md:space-y-0'>
+                                                          {/* image md */}
+                                                          <div className='flex justify-between items-center'>
+                                                            <img
+                                                              src={
+                                                                data.currentUser
+                                                                  .image.png
+                                                              }
+                                                              alt=''
+                                                              className='w-12 hidden md:block'
+                                                            />
+                                                          </div>
+                                                          {/* input */}
+                                                          <div className='md:w-2/3'>
+                                                            <textarea
+                                                              type='text'
+                                                              placeholder='Add comment here'
+                                                              value={replyvalue}
+                                                              onChange={(e) =>
+                                                                setReplyvalue(
+                                                                  e.target.value
+                                                                )
+                                                              }
+                                                              className='font-sans text-xs font-light h-20 border rounded-md border-lightGrayishBlue 
+                  outline-lightGrayishBlue
+                  text-clip w-full px-2 py-1'
+                                                            ></textarea>
+                                                          </div>
+                                                          {/* image and send */}
+                                                          <div className='flex justify-between items-center'>
+                                                            <img
+                                                              src={
+                                                                data.currentUser
+                                                                  .image.png
+                                                              }
+                                                              alt=''
+                                                              className='w-8 md:hidden'
+                                                            />
+                                                            <button
+                                                              type='submit'
+                                                              className='px-2 py-1 md:py-2 md:px-4 md:rounded-md bg-blue text-white rounded-sm text-sm font-light'
+                                                            >
+                                                              {isEditing
+                                                                ? 'update1'
+                                                                : 'Send'}
+                                                            </button>
+                                                          </div>
+                                                        </div>
+                                                      </form>
+                                                    ) : (
+                                                      ''
+                                                    )}
                                                     {/* reply */}
                                                     <div className='flex items-center gap-4 md:hidden cursor-pointer'>
                                                       {user ? (
@@ -864,7 +904,7 @@ const Newwork = () => {
                                                     className='px-2 py-1 md:py-2 md:px-4 md:rounded-md bg-blue text-white rounded-sm text-sm font-light'
                                                   >
                                                     {isEditing
-                                                      ? 'update'
+                                                      ? 'updatee'
                                                       : 'Send'}
                                                   </button>
                                                 </div>
@@ -888,6 +928,7 @@ const Newwork = () => {
                   </div>
                 </div>
               </div>
+
               {/* peopeles reply on post section */}
               {hideform && formid === id ? (
                 <form
